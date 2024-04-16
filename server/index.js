@@ -45,12 +45,11 @@ mongoose.connect(uri, {
     }
   }
 
-  // Protected route, can only load database entries and edit/delete if user is verified
+  // Protected route, can only load database entries and crud abilities if user is verified
 app.get('/', verifyUser, (req, res) => {
     MovieModel.find({})
     .then(movies => res.json(movies))
     .catch(err => res.json(err))
-    //return res.json("Success")
 })
 
 app.get('/getMovie/:id', (req, res) => {
@@ -85,24 +84,6 @@ app.delete('/deleteMovie/:id', (req, res) => {
     .then(movies => res.json(movies))
     .catch(err => res.json(err))
   })
-
-  /*
-  app.post("/register", (req, res) => {
-    console.log("Recieved POST request to /register")
-    const {name, email, password} = req.body;
-    bcrypt.hash(password, 10)
-    RegisterUserModel.findOne({email: email})
-    .then(user => {
-      if(user) {
-        res.json("User already has an account with that email")
-      } else {
-        RegisterUserModel.create({name: name, email: email, password: password})
-        .then(result => res.json("Account Created"))
-        .catch(err => res.json("Error while creating user" + err))
-      }
-    }) .catch(err => res.json(err))
-  })
-  */
 
 
   /**
