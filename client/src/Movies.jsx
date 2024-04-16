@@ -5,10 +5,22 @@ import axios from "axios";
 function Movies() {
     axios.defaults.withCredentials = true;
     const [movies, setMovies] = useState([])
+    const navigate = useNavigate();
 
     useEffect(()=> {
         document.title = "Movie Rating Tracker";
+
+        const token = localStorage.getItem('token');
+
+        
+        // If no token is present, navigate to login page
+        if (!token) {
+            navigate('/login');
+            return;
+        }
+
         axios.get('http://localhost:3001', {withCredentials: true})
+        
 
         .then(response => {
             const data = response.data;
@@ -16,30 +28,15 @@ function Movies() {
             if(Array.isArray(data) && data.length > 0) {
                 setMovies(data);
             } else {
-                useNavigate('/login');
+                navigate('/login');
             }
         })
         .catch(err => {
             console.log(err);
-            useNavigate('/login');
+            navigate('/login');
         })
 
-        /*
-        .then(result => {console.log(result)
-            if(result.data !== "Success") {
-                Navigate('/login')
-            }
-            else {
-                Navigate('/')
-            }
-            
-        })
-        .catch(err => console.log(err))
 
-        .then(result => setMovies(result.data))
-
-        .catch(err => console.log(err))
-        */
     }, [])
 
     const handleDelete = (id) => {
@@ -48,6 +45,14 @@ function Movies() {
             window.location.reload()})
         .catch(errr => console.log(errr))
     }
+
+    const handleLogout = () => {
+        // Clear sessionStorage (token)
+        localStorage.removeItem('token');
+    
+        // Redirect to login page
+        window.location.href = '/login';
+      };
 
     const backgroundStyle = {
         backgroundColor: '#007188', 
@@ -59,7 +64,7 @@ function Movies() {
     return (
         <div style={backgroundStyle}>
             <h2>Movie Rating Tracker</h2>
-            <h2><button className='btn btn-warning'>Home</button>  <Link to={`/about/`} className='btn btn-warning'>About</Link>  <Link to={`/contact/`} className='btn btn-warning'>Contact Us</Link>  <Link to={`/register/`} className='btn btn-success'>Create New User</Link></h2>
+            <h2><button className='btn btn-warning'>Home</button>  <Link to={`/about/`} className='btn btn-warning'>About</Link>  <Link to={`/contact/`} className='btn btn-warning'>Contact Us</Link>  <Link to={`/register/`} className='btn btn-success'>Create New User</Link>   <button className='btn btn-danger' onClick={handleLogout}>Logout</button></h2>
         <div className="d-flex vh-100 bg-info justify-content-center align-items-center">
             <div className="w-50 bg-white rounded p-3">
                 <Link to="/create" className='btn btn-success'>Add New Movie </Link>

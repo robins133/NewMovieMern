@@ -9,6 +9,8 @@ function UserLogin() {
     const [password, setPassword] = useState()
     const navigate = useNavigate();
     
+
+    //Sends the email and password to the server for authentication. Upon successful authentication, user receives a JWT token which is stored in the local storage.
     axios.defaults.withCredentials = true;
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -46,7 +48,7 @@ function UserLogin() {
                         onChange={(e) => setPassword(e.target.value)}/>
                     </div>
                     <button type="submit" className="btn btn-success w-100 rounded-0">Log in</button>
-                    <p>You agree to the terms & policies by logging in</p>
+                    <p>If you do not have an account, please create one by clicking below</p>
                     <Link to={`/register/`} className='btn btn-dark'>Create Account</Link>
                 </form>
             </div>
