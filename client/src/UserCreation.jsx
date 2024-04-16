@@ -46,7 +46,8 @@ function UserCreation() {
                         onChange={(e) => setPassword(e.target.value)}/>
                     </div>
                     <button type="submit" className="btn btn-success w-100 rounded-0">Register</button>
-                    <p>already have account?!!?</p>
+                    <br/>
+                    <p>If you already have an account, login below</p>
                     <Link to={`/login/`} className='btn btn-dark'>Login</Link>
                 </form>
             </div>

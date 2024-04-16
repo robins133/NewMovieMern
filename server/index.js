@@ -3,12 +3,16 @@ const mongoose = require('mongoose')
 const cors = require('cors')
 const MovieModel = require('./models/Movies')
 const RegisterUserModel = require('./models/Register')
+const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
+const cookieParser = require('cookie-parser')
 
 //mongo
 const uri = "mongodb+srv://robins57:Bruh5@fullstackproject.nhzv5ms.mongodb.net/?retryWrites=true&w=majority&appName=FullStackProject";
 
 const app = express()
 app.use(cors())
+app.use(cookieParser())
 app.use(express.json())
 
 // Connecting to the Mongo DB
