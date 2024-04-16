@@ -8,6 +8,7 @@ import CreateMovie from './CreateMovie'
 import Contact from './Contact'
 import About from './About'
 import UserCreation from './UserCreation'
+import UserLogin from './UserLogin'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -23,6 +24,7 @@ function App() {
           <Route path='/contact' element={<Contact />}></Route>
           <Route path='/about' element={<About />}></Route>
           <Route path='/register' element={<UserCreation />}></Route>
+          <Route path='/login' element={<UserLogin />}></Route>
         </Routes>
         </BrowserRouter>
       </div>

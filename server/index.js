@@ -75,6 +75,22 @@ app.delete('/deleteMovie/:id', (req, res) => {
     }) .catch(err => res.json(err))
   })
   
+  app.post("/login", (req, res) => {
+    console.log("Recieved POST request to /login")
+    const {email, password} = req.body;
+    RegisterUserModel.findOne({email: email})
+    .then(user => {
+      if(user) {
+          if(user.password === password) {
+            res.json("Login Successful")
+          } else {
+            res.json("Login failed. Wrong password")
+          }
+      } else {
+        res.json("No record exists for this email/pass combo")
+      }
+    }) .catch(err => res.json(err))
+  })
 
 
 // Starting the server
