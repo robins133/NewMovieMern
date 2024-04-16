@@ -1,15 +1,45 @@
 import React, { useEffect, useState } from "react";
-import {Link} from "react-router-dom";
+import {Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 function Movies() {
+    axios.defaults.withCredentials = true;
     const [movies, setMovies] = useState([])
 
     useEffect(()=> {
         document.title = "Movie Rating Tracker";
-        axios.get('http://localhost:3001')
-        .then(result => setMovies(result.data))
+        axios.get('http://localhost:3001', {withCredentials: true})
+
+        .then(response => {
+            const data = response.data;
+
+            if(Array.isArray(data) && data.length > 0) {
+                setMovies(data);
+            } else {
+                useNavigate('/login');
+            }
+        })
+        .catch(err => {
+            console.log(err);
+            useNavigate('/login');
+        })
+
+        /*
+        .then(result => {console.log(result)
+            if(result.data !== "Success") {
+                Navigate('/login')
+            }
+            else {
+                Navigate('/')
+            }
+            
+        })
         .catch(err => console.log(err))
+
+        .then(result => setMovies(result.data))
+
+        .catch(err => console.log(err))
+        */
     }, [])
 
     const handleDelete = (id) => {

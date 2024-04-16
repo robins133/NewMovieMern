@@ -11,7 +11,11 @@ const cookieParser = require('cookie-parser')
 const uri = "mongodb+srv://robins57:Bruh5@fullstackproject.nhzv5ms.mongodb.net/?retryWrites=true&w=majority&appName=FullStackProject";
 
 const app = express()
-app.use(cors())
+app.use(cors({
+  origin: ["http://localhost:5173"],
+  methods: ["GET", "POST"],
+  credentials: true
+}))
 app.use(cookieParser())
 app.use(express.json())
 
@@ -25,10 +29,24 @@ mongoose.connect(uri, {
     console.error('Error connecting to MongoDB:', error);
   });
 
-app.get('/', (req, res) => {
+  const verifyUser = (req, res, next) => {
+    const token = req.cookies.token;
+    //console.log(token);
+    if(!token) {
+      return res.json("The token was not available")
+    } else {
+      jwt.verify(token, "jwt-secret-key", (err, decoded) => {
+        if(err) return res.json("Token is wrong")
+        next();
+      })
+    }
+  }
+
+app.get('/', verifyUser, (req, res) => {
     MovieModel.find({})
     .then(movies => res.json(movies))
     .catch(err => res.json(err))
+    //return res.json("Success")
 })
 
 app.get('/getMovie/:id', (req, res) => {
@@ -64,9 +82,11 @@ app.delete('/deleteMovie/:id', (req, res) => {
     .catch(err => res.json(err))
   })
 
+  /*
   app.post("/register", (req, res) => {
     console.log("Recieved POST request to /register")
     const {name, email, password} = req.body;
+    bcrypt.hash(password, 10)
     RegisterUserModel.findOne({email: email})
     .then(user => {
       if(user) {
@@ -78,6 +98,33 @@ app.delete('/deleteMovie/:id', (req, res) => {
       }
     }) .catch(err => res.json(err))
   })
+  */
+
+  app.post("/register", (req, res) => {
+    console.log("Received POST request to /register");
+    const { name, email, password } = req.body;
+  
+    // Hashing the password
+    bcrypt.hash(password, 10)
+      .then(hashedPassword => {
+        RegisterUserModel.findOne({ email: email })
+          .then(user => {
+            if (user) {
+              res.json("User already has an account with that email");
+            } else {
+              RegisterUserModel.create({
+                name: name,
+                email: email,
+                password: hashedPassword  // Storing hashed password
+              })
+                .then(result => res.json("Account Created"))
+                .catch(err => res.json("Error while creating user" + err));
+            }
+          })
+          .catch(err => res.json(err));
+      })
+      .catch(err => res.json(err));
+  });
   
   app.post("/login", (req, res) => {
     console.log("Recieved POST request to /login")
@@ -85,11 +132,15 @@ app.delete('/deleteMovie/:id', (req, res) => {
     RegisterUserModel.findOne({email: email})
     .then(user => {
       if(user) {
-          if(user.password === password) {
-            res.json("Login Successful")
-          } else {
-            res.json("Login failed. Wrong password")
-          }
+          bcrypt.compare(password, user.password, (err, response) => {
+            if(response) {
+              const token = jwt.sign({email: user.email}, "jwt-secret-key", {expiresIn:"1d"})
+              res.cookie("token", token);
+              res.json({ message: "Successful login.", token: token });
+            } else {
+              res.json("The password is incorrect")
+            }
+          })
       } else {
         res.json("No record exists for this email/pass combo")
       }

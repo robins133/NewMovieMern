@@ -14,7 +14,7 @@ function UserCreation() {
         axios.post("http://localhost:3001/register", {name, email, password})
         .then(result => {
             console.log(result)
-            navigate('/')
+            navigate('/login')
     })
         .catch(err => console.log(err))
     }
@@ -48,7 +48,7 @@ function UserCreation() {
                     <button type="submit" className="btn btn-success w-100 rounded-0">Register</button>
                     <br/>
                     <p>If you already have an account, login below</p>
-                    <Link to={`/login/`} className='btn btn-dark'>Login</Link>
+                    <Link to={`/login`} className='btn btn-dark'>Login</Link>
                 </form>
             </div>
         </div>
