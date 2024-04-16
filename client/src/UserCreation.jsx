@@ -47,7 +47,7 @@ function UserCreation() {
                     </div>
                     <button type="submit" className="btn btn-success w-100 rounded-0">Register</button>
                     <p>already have account?!!?</p>
-                    <button className="btn btn-default border w-100 bg-light rounded-0 text-decoration-none">Login</button>
+                    <Link to={`/login/`} className='btn btn-dark'>Login</Link>
                 </form>
             </div>
         </div>

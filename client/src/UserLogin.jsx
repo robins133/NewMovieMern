@@ -10,7 +10,7 @@ function UserLogin() {
     
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.post("http://localhost:3001/login", {name, email, password})
+        axios.post("http://localhost:3001/login", {email, password})
         .then(result => {
             console.log(result)
             navigate('/')
@@ -39,7 +39,7 @@ function UserLogin() {
                     </div>
                     <button type="submit" className="btn btn-success w-100 rounded-0">Log in</button>
                     <p>You agree to the terms & policies by logging in</p>
-                    <button className="btn btn-default border w-100 bg-light rounded-0 text-decoration-none">Sign Up</button>
+                    <Link to={`/register/`} className='btn btn-dark'>Create Account</Link>
                 </form>
             </div>
         </div>
