@@ -5,6 +5,8 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 
 function UserCreation() {
 
+    document.title = "Movie Rating Tracker Registration";
+
     const [name, setName] = useState()
     const [email, setEmail] = useState()
     const [password, setPassword] = useState()

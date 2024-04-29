@@ -5,6 +5,8 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 
 function UserLogin() {
 
+    document.title = "Movie Rating Tracker Login";
+
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState()
     const navigate = useNavigate();
@@ -29,6 +31,7 @@ function UserLogin() {
     }
 
     return (
+        
         <div className="d-flex justify-content-center align-items-center bg-primary vh-100">
             <div className="bg-white p-3 rounded w-25">
                 <h2>Sign-in</h2>
