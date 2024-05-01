@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import styles from "./Movies.module.css"; // Import CSS module
+import styles from "./Movies.module.css"; 
 
 function Movies() {
     axios.defaults.withCredentials = true;

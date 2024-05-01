@@ -124,7 +124,7 @@
     padding: 20px;
     border: 1px solid #000000;
     border-radius: 5px;
-    background-color: #757575a4;
+    background-color: #ffffffbb;
     text-align: center; /* Align text to the center */
 }
 
@@ -140,9 +140,10 @@
     padding: 15px;
     border: 1px solid #e0e0e0;
     border-radius: 5px;
-    background-color: #f5f5f5dc;
+    background-color: #000000dc;
     margin: 10px;
     text-align: left;
+    color: white;
 }
 
 h3 {

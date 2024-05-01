@@ -1,0 +1,81 @@
+.pageBackground {
+    background-image: url('/movietheater.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: black;
+    color: white;
+    padding: 10px 20px;
+}
+
+.navbar h2 {
+    margin: 0;
+}
+
+.navbar .btn {
+    color: white;
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.navbar .btn:hover {
+    background-color: gold;
+}
+
+.imageSection {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+}
+
+.overlay {
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.808);
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    color: white;
+}
+
+.overlay h1 {
+    margin-bottom: 10px;
+}
+
+.overlay h2 {
+    margin-top: 10px;
+}
+
+.overlay p {
+    margin: 0;
+}
+
+.footer {
+    background-color: black;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+.contactTxt {
+    font-weight: 1000;
+    font-size: 75px;
+}
+
+.responsiveTxt {
+    font-weight: 750;
+    font-size: 45px;
+}
