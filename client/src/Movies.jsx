@@ -63,9 +63,9 @@ function Movies() {
 
             <div className={styles.moviesContainer}>
                 <div className={styles.description}>
-                    <h3>About Movie Rating Tracker</h3>
-                    <p>Welcome to Movie Rating Tracker! This application allows you to track and manage your movie collection. You can add, edit, and delete movies, as well as view details about each movie.</p>
-                    <p>To get started, use the "Add New Movie" button to add your favorite movies to the collection. You can then edit or delete movies as needed.</p>
+                    <h3>Movie Rating Tracker</h3>
+                    <p>Thanks for using the Movie Rating Tracker! This webapp allows you to track and manage your very own movie collection. You can add, edit, and delete movies, as well as view details about each movie.</p>
+                    <p>To get started, use the "Add New Movie" button to add your favorite movies to your collection, give them a genre and a personal rating out of 10. You can then edit or delete movies as needed.</p>
                 </div>
                 <Link to="/create" className={`${styles.btn} ${styles.btnEdit} ${styles.addMovieButton}`}>Add New Movie</Link>
                 <table className={`table ${styles.moviesTable}`}>
