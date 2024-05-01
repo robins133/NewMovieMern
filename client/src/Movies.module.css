@@ -178,3 +178,29 @@ body {
     margin: 0 auto;
 }
 
+@media only screen and (max-width: 768px) {
+    .navbar {
+        padding: 10px;
+    }
+
+    .btn {
+        width: 100px;
+    }
+
+    .btnEdit {
+        width: 200px;
+    }
+
+    .btnDanger2 {
+        width: 60px;
+    }
+
+    .aboutContainer {
+        padding: 10px;
+    }
+
+    .subItem {
+        flex-basis: calc(50% - 10px);
+    }
+}
+
