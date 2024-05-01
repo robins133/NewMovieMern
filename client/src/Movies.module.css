@@ -1,0 +1,179 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.pageBackground {
+    background-image: url('/movietheater.jpg'); /* Replace with your image path */
+    background-size: 100% 100%; /* Fit the image to the viewport without stretching */
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    min-height: 100vh;
+    width: 100vw;
+    overflow-x: hidden; /* Prevent horizontal scroll */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.banner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.navbar {
+    background-color: black;
+    color: white;
+    padding: 10px 20px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    position: fixed; /* Fixed position */
+    top: 0; /* Attach to the top */
+    z-index: 1000; /* Ensure it's above other content */
+}
+
+.navbar img {
+    height: 30px;
+    margin-right: auto;
+}
+
+.navbar .btn-container {
+    display: flex;
+    gap: 1rem; /* Add space between buttons */
+}
+
+.navbar .btn-container button,
+.navbar .btn-container a {
+    color: white; /* Default button color */
+    transition: color 0.3s; /* Smooth transition effect */
+}
+
+.navbar .btn-container button:hover,
+.navbar .btn-container a:hover {
+    color: gold; 
+}
+
+.btn {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    width: 150px;
+    background-color: transparent;
+    transition: color 0.3s, background-color 0.3s;
+    color: white; 
+}
+
+.btn:hover {
+    color: black;
+    background-color: gold;
+}
+
+.btnSuccess {
+    background-color: #28a745;
+}
+
+.btnEdit {
+    background-color: #28a745;
+    padding: 0.5rem 1.25rem; /* Increase the horizontal padding */
+    width: 250px;
+    text-align: center;
+}
+
+.btnDanger {
+    background-color: #dc3545;
+}
+
+.btnDanger2
+{
+    background-color: #dc3545;
+    padding: 0.35rem;
+    width: 80px;
+}
+
+.btnDanger3
+{
+    background-color: #dc3545;
+}
+
+.btnSuccess:hover,
+.btnSuccess:hover {
+    color: white;
+    background-color: #28a745;
+}
+
+.btnDanger:hover {
+    color: white;
+    background-color: #dc3545;
+}
+
+.description {
+    margin-top: 1rem;
+}
+
+.moviesContainer {
+    background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black background */
+    border-radius: 10px;
+    padding: 1rem;
+    position: absolute; /* Position the container absolutely */
+    top: 50%; /* Center vertically */
+    left: 50%; /* Center horizontally */
+    transform: translate(-50%, -50%); /* Center the container */
+    width: 80%; /* Adjust the width as needed */
+    max-width: 1200px; /* Limit the maximum width */
+    overflow: auto; /* Add scroll bars if content exceeds container */
+    display: flex;
+    flex-direction: column; /* Arrange children vertically */
+    align-items: center; /* Center children horizontally */
+}
+
+.moviesTable {
+    width: 100%;
+}
+
+.moviesTable td {
+    text-align: center;
+}
+
+.moviesTable th {
+    text-align: center;
+}
+
+.moviesTable .btnDanger {
+    padding: 0.5rem 1rem; /* Set the same padding as the edit button */
+}
+
+.description p {
+    color: white;
+}
+
+.description h3 {
+    color: gold;
+}
+
+.description {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    text-align: center; /* Align text to the center */
+}
+
+.footer {
+    background-color: black;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    position: fixed; /* Fixed position */
+    bottom: 0; /* Stick to the bottom */
+    left: 0; /* Stretch across the entire width */
+    width: 100%; /* Stretch across the entire width */
+}
+
+.footerContent {
+    max-width: 1200px;
+    margin: 0 auto;
+}

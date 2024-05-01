@@ -1,12 +1,12 @@
 .pageBackground {
-    background-image: url('/movietheater.jpg'); /* Replace with your image path */
-    background-size: 100% 100%; /* Fit the image to the viewport without stretching */
+    background-image: url('/movietheater.jpg');
+    background-size: 100% 100%;
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: center;
     min-height: 100vh;
     width: 100vw;
-    overflow-x: hidden; /* Prevent horizontal scroll */
+    overflow-x: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -20,38 +20,95 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-/* ... (rest of the CSS remains unchanged) ... */
-
-
-.aboutContainer {
-    margin: 0 auto;
-    max-width: 1200px;
-    padding: 20px;
-}
-
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #f8f9fa;
+    background-color: black;
+    color: white;
     padding: 10px 20px;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 1000;
 }
 
-.navbarLeft h2 {
-    margin: 0;
+.navbar img {
+    height: 30px;
+    margin-right: auto;
 }
 
-.navbarRight {
+.navbar .btn-container {
     display: flex;
-    gap: 10px;
+    gap: 1rem;
+}
+
+.navbar .btn-container button,
+.navbar .btn-container a {
+    color: white;
+    transition: color 0.3s;
+}
+
+.navbar .btn-container button:hover,
+.navbar .btn-container a:hover {
+    color: gold;
 }
 
 .btn {
-    padding: 10px 20px;
-    background-color: #ffc107;
+    padding: 0.5rem 1rem;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    text-decoration: none;
+    width: 150px;
+    background-color: transparent;
+    transition: color 0.3s, background-color 0.3s;
+    color: white;
+}
+
+.btn:hover {
+    color: black;
+    background-color: gold;
+}
+
+.btnSuccess {
+    background-color: #28a745;
+}
+
+.btnEdit {
+    background-color: #28a745;
+    padding: 0.5rem 1.25rem;
+    width: 250px;
+    text-align: center;
+}
+
+.btnDanger {
+    background-color: #dc3545;
+}
+
+.btnDanger2 {
+    background-color: #dc3545;
+    padding: 0.35rem;
+    width: 80px;
+}
+
+.btnDanger3 {
+    background-color: #dc3545;
+}
+
+.btnSuccess:hover,
+.btnSuccess:hover {
+    color: white;
+    background-color: #28a745;
+}
+
+.btnDanger:hover {
+    color: white;
+    background-color: #dc3545;
+}
+
+.description {
+    margin-top: 1rem;
 }
 
 .techContainer {
@@ -59,20 +116,22 @@
     gap: 20px;
     flex-wrap: wrap;
     justify-content: space-between;
+    margin-top: 80px; /* Adjust for the navbar height */
 }
 
 .techBlock {
     flex: 1;
     padding: 20px;
-    border: 1px solid #ccc;
+    border: 1px solid #000000;
     border-radius: 5px;
-    background-color: #fff;
+    background-color: #bab7bb;
+    text-align: center; /* Align text to the center */
 }
 
 .subTechBlock {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: left;
     margin: 20px 0;
 }
 
@@ -83,7 +142,7 @@
     border-radius: 5px;
     background-color: #f5f5f5;
     margin: 10px;
-    text-align: center;
+    text-align: left;
 }
 
 h3 {
@@ -96,4 +155,20 @@ h4 {
 
 p {
     margin: 0;
+}
+
+.footer {
+    background-color: black;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    position: fixed; /* Fixed position */
+    bottom: 0; /* Stick to the bottom */
+    left: 0; /* Stretch across the entire width */
+    width: 100%; /* Stretch across the entire width */
+}
+
+.footerContent {
+    max-width: 1200px;
+    margin: 0 auto;
 }

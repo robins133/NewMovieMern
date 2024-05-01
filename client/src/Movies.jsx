@@ -1,74 +1,74 @@
 import React, { useEffect, useState } from "react";
-import {Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import styles from "./Movies.module.css"; // Import CSS module
 
 function Movies() {
     axios.defaults.withCredentials = true;
-    const [movies, setMovies] = useState([])
+    const [movies, setMovies] = useState([]);
     const navigate = useNavigate();
 
-    useEffect(()=> {
+    useEffect(() => {
         document.title = "Movie Rating Tracker";
+        const token = localStorage.getItem("token");
 
-        const token = localStorage.getItem('token');
-
-        
         // If no token is present, navigate to login page
         if (!token) {
-            navigate('/login');
+            navigate("/login");
             return;
         }
 
-        axios.get('http://localhost:3001', {withCredentials: true})
-        
-
-        .then(response => {
-            const data = response.data;
-
-            if(Array.isArray(data) && data.length > 0) {
-                setMovies(data);
-            } else {
-                navigate('/login');
-            }
-        })
-        .catch(err => {
-            console.log(err);
-            navigate('/login');
-        })
-
-
-    }, [])
+        axios.get("http://localhost:3001", { withCredentials: true })
+            .then(response => {
+                const data = response.data;
+                if (Array.isArray(data) && data.length >= 0) {
+                    setMovies(data);
+                } else {
+                    console.log("Array of movies is less than 0, check Movies.jsx");
+                }
+            })
+            .catch(err => {
+                console.log(err);
+                console.log("Movies");
+            });
+    }, []);
 
     const handleDelete = (id) => {
-        axios.delete('http://localhost:3001/deleteMovie/'+id)
-        .then(res => {console.log(res)
-            window.location.reload()})
-        .catch(errr => console.log(errr))
-    }
+        axios.delete("http://localhost:3001/deleteMovie/" + id)
+            .then(res => {
+                console.log(res);
+                window.location.reload();
+            })
+            .catch(errr => console.log(errr));
+    };
 
     const handleLogout = () => {
         // Clear sessionStorage (token)
-        localStorage.removeItem('token');
-    
-        // Redirect to login page
-        window.location.href = '/login';
-      };
-
-    const backgroundStyle = {
-        backgroundColor: '#007188', 
-        padding: '5rem',
-        color: 'white', 
-
+        localStorage.removeItem("token");
+        // Redirect to login page 
+        window.location.href = "/login";
     };
 
     return (
-        <div style={backgroundStyle}>
-            <h2>Movie Rating Tracker</h2>
-            <h2><button className='btn btn-warning'>Home</button>  <Link to={`/about/`} className='btn btn-warning'>About</Link>  <Link to={`/contact/`} className='btn btn-warning'>Contact Us</Link>  <Link to={`/register/`} className='btn btn-success'>Create New User</Link>   <button className='btn btn-danger' onClick={handleLogout}>Logout</button></h2>
-        <div className="d-flex vh-100 bg-info justify-content-center align-items-center">
-            <div className="w-50 bg-white rounded p-3">
-                <Link to="/create" className='btn btn-success'>Add New Movie </Link>
-                <table className='table'>
+        <div className={styles.pageBackground}>
+            <div className={styles.banner}>
+                <div className={styles.navbar}>
+                    <img src="/favicon.ico" alt="favicon" />
+                    <Link to={`/`} className={`${styles.btn} ${styles.btnWarning}`}>Home</Link>
+                    <Link to={`/about/`} className={`${styles.btn} ${styles.btnWarning}`}>About</Link>
+                    <Link to={`/contact/`} className={`${styles.btn} ${styles.btnWarning}`}>Contact Us</Link>
+                    <button className={`${styles.btn} ${styles.btnDanger3}`} onClick={handleLogout}>Logout</button>
+                </div>
+            </div>
+
+            <div className={styles.moviesContainer}>
+                <div className={styles.description}>
+                    <h3>About Movie Rating Tracker</h3>
+                    <p>Welcome to Movie Rating Tracker! This application allows you to track and manage your movie collection. You can add, edit, and delete movies, as well as view details about each movie.</p>
+                    <p>To get started, use the "Add New Movie" button to add your favorite movies to the collection. You can then edit or delete movies as needed.</p>
+                </div>
+                <Link to="/create" className={`${styles.btn} ${styles.btnEdit} ${styles.addMovieButton}`}>Add New Movie</Link>
+                <table className={`table ${styles.moviesTable}`}>
                     <thead>
                         <tr>
                             <th>Title</th>
@@ -84,16 +84,21 @@ function Movies() {
                                 <td>{movie.genre}</td>
                                 <td>{movie.rating}</td>
                                 <td>
-                                <Link to={`/update/${movie._id}`} className='btn btn-success'>Edit</Link>
-                                    <button className='btn btn-danger' 
-                                    onClick={(e) => handleDelete(movie._id)}>Delete</button>
+                                    <Link to={`/update/${movie._id}`} className={`${styles.btn} ${styles.btnEdit}`}>Edit</Link>
+                                    <button className={`${styles.btn} ${styles.btnDanger2} ${styles.btnAction}`} onClick={() => handleDelete(movie._id)}>Delete</button>
                                 </td>
                             </tr>
                         ))}
                     </tbody>
                 </table>
             </div>
-        </div>
+            {/* Footer */}
+            <footer className={styles.footer}>
+                <div className={styles.footerContent}>
+                    <p>&copy; 2024 Movie Rating Tracker by James Robinson. All rights reserved.</p>
+                </div>
+            </footer>
+            {/* End Footer */}
         </div>
     );
 }

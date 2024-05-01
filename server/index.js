@@ -34,23 +34,39 @@ mongoose.connect(uri, {
   // Authentication middleware, if token is valid then the request can proceed, otherwise returns an error
   const verifyUser = (req, res, next) => {
     const token = req.cookies.token;
-    //console.log(token);
-    if(!token) {
-      return res.json("The token was not available")
-    } else {
-      jwt.verify(token, "jwt-secret-key", (err, decoded) => {
-        if(err) return res.json("Token is wrong")
-        next();
-      })
+    console.log(token);
+    if (!token) {
+        return res.status(401).json({ error: "Unauthorized: No token provided" });
     }
-  }
+
+    jwt.verify(token, "jwt-secret-key", (err, decoded) => {
+        if (err) {
+            return res.status(401).json({ error: "Unauthorized: Invalid token" });
+        }
+        req.user = decoded;
+        console.log(decoded);
+        next();
+    });
+};
 
   // Protected route, can only load database entries and crud abilities if user is verified
-app.get('/', verifyUser, (req, res) => {
-    MovieModel.find({})
-    .then(movies => res.json(movies))
-    .catch(err => res.json(err))
-})
+  app.get('/', verifyUser, async (req, res) => {
+    const userId = req.user.id;
+    console.log(userId);
+
+    try {
+        // Find movies associated with the authenticated user
+        const user = await RegisterUserModel.findById(userId).populate('Movies');
+
+        if (!user) {
+            return res.status(404).json({ error: "User not found" });
+        }
+
+        res.json(user.Movies); // Return the user's movies
+    } catch (error) {
+        res.status(500).json({ error: "Error fetching user's movies" });
+    }
+});
 
 app.get('/getMovie/:id', (req, res) => {
     const id = req.params.id;
@@ -78,12 +94,22 @@ app.delete('/deleteMovie/:id', (req, res) => {
     .catch(err => res.json(err))
 })
 
-  app.post("/createMovie", (req, res) => {
-    console.log("Recieved POST request to /createMovie")
-    MovieModel.create(req.body)
-    .then(movies => res.json(movies))
-    .catch(err => res.json(err))
-  })
+app.post("/createMovie", verifyUser, (req, res) => {
+  console.log("Received POST request to /createMovie");
+  const { title, genre, rating } = req.body;
+  const userId = req.user.id; // Access userId from req.user object
+  console.log(userId);
+
+  // Create the movie document
+  MovieModel.create({ title, genre, rating })
+      .then(movie => {
+          // Add the movie reference to the user's Movies array
+          RegisterUserModel.findByIdAndUpdate(userId, { $push: { Movies: movie._id } })
+              .then(() => res.json(movie))
+              .catch(err => res.status(500).json({ error: "Error updating user's Movies array" }));
+      })
+      .catch(err => res.status(500).json({ error: "Error creating movie" }));
+});
 
 
   /**
@@ -133,7 +159,7 @@ app.delete('/deleteMovie/:id', (req, res) => {
       if(user) {
           bcrypt.compare(password, user.password, (err, response) => {
             if(response) {
-              const token = jwt.sign({email: user.email}, "jwt-secret-key", {expiresIn:"1d"})
+              const token = jwt.sign({email: user.email, id: user._id}, "jwt-secret-key", {expiresIn:"1d"})
               //Sets token in cookie
               res.cookie("token", token);
               // Sends success message along with token
