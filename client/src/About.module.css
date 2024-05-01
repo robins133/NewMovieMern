@@ -162,7 +162,7 @@ p {
     color: white;
     padding: 20px;
     text-align: center;
-    position: fixed; /* Fixed position */
+    position: absolute; /* Absolute position */
     bottom: 0; /* Stick to the bottom */
     left: 0; /* Stretch across the entire width */
     width: 100%; /* Stretch across the entire width */
